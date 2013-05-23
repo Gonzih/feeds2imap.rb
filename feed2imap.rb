@@ -98,7 +98,13 @@ def mark_as_read(item)
 end
 
 def format_item(item)
-  title   = item.title.content
+  title = item.title
+  title = if title.is_a?(String)
+            title
+          else
+            title.content
+          end
+
   author  = item.author.name.content
   content = item.content.content
   link    = item.link.href
