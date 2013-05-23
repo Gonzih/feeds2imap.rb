@@ -81,8 +81,46 @@ def get_imap_port
   load_imap_file['port']
 end
 
+def fetch_title(item)
+  case item
+  when RSS::Atom::Feed::Entry  then item.title.content
+  when RSS::Rss::Channel::Item then item.title
+  end
+end
+
+def fetch_author(item)
+  case item
+  when RSS::Atom::Feed::Entry  then if item.author
+                                      item.author.name.content
+                                    else
+                                      ''
+                                    end
+  when RSS::Rss::Channel::Item then item.author.to_s
+  end
+end
+
+def fetch_content(item)
+  case item
+  when RSS::Atom::Feed::Entry  then (item.content || item.summary).content
+  when RSS::Rss::Channel::Item then item.description
+  end
+end
+
+def fetch_link(item)
+  case item
+  when RSS::Atom::Feed::Entry  then item.link.href
+  when RSS::Rss::Channel::Item then item.link
+  end
+end
+
 def item_digest(item)
-  str = item.title.content + item.author.name.content + item.content.content + item.link.href
+  title   = fetch_title(item)
+  author  = fetch_author(item)
+  content = fetch_content(item)
+  link    = fetch_link(item)
+
+
+  str = title + author + content + link
 
   Digest::MD5.new.hexdigest(str)
 end
@@ -98,16 +136,10 @@ def mark_as_read(item)
 end
 
 def format_item(item)
-  title = item.title
-  title = if title.is_a?(String)
-            title
-          else
-            title.content
-          end
-
-  author  = item.author.name.content
-  content = item.content.content
-  link    = item.link.href
+  title   = fetch_title(item)
+  author  = fetch_author(item)
+  content = fetch_content(item)
+  link    = fetch_link(item)
 
   <<-EOS
 MIME-Version: 1.0
