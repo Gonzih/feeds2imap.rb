@@ -116,11 +116,9 @@ end
 def item_digest(item)
   title   = fetch_title(item)
   author  = fetch_author(item)
-  content = fetch_content(item)
   link    = fetch_link(item)
 
-
-  str = title + author + content + link
+  str = title + author + link
 
   Digest::MD5.new.hexdigest(str)
 end
