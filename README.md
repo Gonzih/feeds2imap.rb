@@ -19,3 +19,7 @@ from: from@email.com
 ### Usage:
 * `feed2imap.rb add <folder-name> <feed-url>` - add feed to feeds file.
 * `feed2imap.rb pull` - pull feeds.
+
+### Thanks:
+Thanks to Greg Hendershott for original idea implemented in Racket
+http://www.greghendershott.com/2013/05/feeds2gmail.html
