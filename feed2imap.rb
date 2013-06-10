@@ -178,7 +178,7 @@ def pull_feed(feed_name, feed_url, imap)
     html = format_item(item)
 
     if new_item?(item)
-      puts "Storing item from #{feed_url} in the folder named #{feed_name}"
+      puts "Saving item \"#{fetch_title(item)}\" from #{feed_url} in to the folder named #{feed_name}"
       imap.append("RSS/#{feed_name}", html, [], Time.now)
       mark_as_read(item)
     end
