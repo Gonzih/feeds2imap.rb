@@ -203,7 +203,8 @@ def pull
     end
   end
 
-  imap.close
+  imap.logout
+  imap.disconnect
 end
 
 case action
