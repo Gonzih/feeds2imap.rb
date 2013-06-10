@@ -175,6 +175,7 @@ def pull_feed(feed_name, feed_url, imap)
 
   rss = RSS::Parser.parse(data, false)
   rss.items.each do |item|
+    imap.noop
     html = format_item(item)
 
     if new_item?(item)
@@ -196,6 +197,7 @@ def pull
   load_feeds.each do |feed_name, urls|
     puts "Pulling feeds for #{feed_name} from #{urls.count} sources."
     urls.each do |url|
+      imap.noop
       puts "Fetching data from #{url}"
       pull_feed(feed_name, url, imap)
     end
