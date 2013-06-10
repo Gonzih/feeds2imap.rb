@@ -191,6 +191,8 @@ def pull_feed(feed_name, feed_url, imap)
 end
 
 def pull
+  log "PULL started"
+
   imap = Net::IMAP.new(get_imap_host, port: get_imap_port, ssl: true)
   imap.login(get_username, get_password)
 
@@ -209,6 +211,8 @@ def pull
 
   imap.logout
   imap.disconnect
+
+  log "PULL ended"
 end
 
 case action
