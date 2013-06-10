@@ -197,6 +197,8 @@ def pull
       pull_feed(feed_name, url, imap)
     end
   end
+
+  imap.close
 end
 
 case action
