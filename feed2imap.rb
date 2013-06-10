@@ -7,6 +7,10 @@ require 'net/imap'
 require 'yaml'
 require 'digest'
 
+def log(str)
+  puts "#{Time.now}: #{str}"
+end
+
 DIR = File.join(Dir.home, '/.config/feed2imap.rb')
 
 cfg = File.join(Dir.home, '/.config')
@@ -179,7 +183,7 @@ def pull_feed(feed_name, feed_url, imap)
     html = format_item(item)
 
     if new_item?(item)
-      puts "Saving item \"#{fetch_title(item)}\" from #{feed_url} in to the folder named #{feed_name}"
+      log "Saving item \"#{fetch_title(item)}\" from #{feed_url} in to the folder named #{feed_name}"
       imap.append("RSS/#{feed_name}", html, [], Time.now)
       mark_as_read(item)
     end
@@ -195,10 +199,10 @@ def pull
   end
 
   load_feeds.each do |feed_name, urls|
-    puts "Pulling feeds for #{feed_name} from #{urls.count} sources."
+    log "Pulling feeds for #{feed_name} from #{urls.count} sources."
     urls.each do |url|
       imap.noop
-      puts "Fetching data from #{url}"
+      log "Fetching data from #{url}"
       pull_feed(feed_name, url, imap)
     end
   end
