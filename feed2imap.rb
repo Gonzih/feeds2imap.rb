@@ -7,10 +7,10 @@ require 'net/imap'
 require 'yaml'
 require 'digest'
 
-debug = false
+$debug = false
 
 def log(str)
-  puts "#{Time.now}: #{str}" if debug || ENV['DEBUG']
+  puts "#{Time.now}: #{str}" if $debug || ENV['DEBUG']
 end
 
 DIR = File.join(Dir.home, '/.config/feed2imap.rb')
