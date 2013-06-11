@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# ruby 2.0
+# ruby 1.9.3+
 
 require 'rss'
 require 'open-uri'
