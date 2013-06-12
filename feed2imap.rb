@@ -143,7 +143,7 @@ def format_item(item)
   title   = fetch_title(item)
   author  = fetch_author(item)
   # Limit content to 5k of symbols due to issues on beaglebone.
-  content = fetch_content(item).to_s[0..5000] + '...'
+  content = fetch_content(item).to_s[0..5000] + '[...]'
   link    = fetch_link(item)
 
   <<-EOS
